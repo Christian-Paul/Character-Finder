@@ -6,6 +6,7 @@ import Home from './Home.jsx';
 import SearchByTrope from './SearchByTrope.jsx';
 import SearchByCharacters from './SearchByCharacters.jsx';
 import TropeIndex from './TropeIndex.jsx';
+import Results from './Results.jsx';
 
 const App = React.createClass({
 	render: function() {
@@ -16,6 +17,7 @@ const App = React.createClass({
 					<Route path='/search-by-trope' component={SearchByTrope} />
 					<Route path='/search-by-characters' component={SearchByCharacters} />
 					<Route path='/trope-index' component={TropeIndex} />
+					<Route path='/results' component={Results} />
 				</Route>
 			</Router>
 		)

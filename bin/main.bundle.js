@@ -100,6 +100,10 @@
 
 	var _TropeIndex2 = _interopRequireDefault(_TropeIndex);
 
+	var _Results = __webpack_require__(747);
+
+	var _Results2 = _interopRequireDefault(_Results);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var App = _react2.default.createClass({
@@ -115,7 +119,8 @@
 					_react2.default.createElement(_reactRouter.IndexRoute, { component: _Home2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: '/search-by-trope', component: _SearchByTrope2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: '/search-by-characters', component: _SearchByCharacters2.default }),
-					_react2.default.createElement(_reactRouter.Route, { path: '/trope-index', component: _TropeIndex2.default })
+					_react2.default.createElement(_reactRouter.Route, { path: '/trope-index', component: _TropeIndex2.default }),
+					_react2.default.createElement(_reactRouter.Route, { path: '/results', component: _Results2.default })
 				)
 			);
 		}
@@ -9974,11 +9979,36 @@
 	var Layout = _react2.default.createClass({
 		displayName: 'Layout',
 
+		getInitialState: function getInitialState() {
+			return {
+				sampleCharacters: [{
+					name: 'Emelia',
+					tropes: ['Action Girl', 'Adorkable', 'Flower in Her Hair'],
+					source: 'Re:Zero',
+					image: 'http://vignette1.wikia.nocookie.net/rezero/images/3/3e/Episode_8.png/revision/latest?cb=20160520212139',
+					description: 'The main female protagonist. She is a half-elf girl who is one of the candidates to become the next ruler in the royal election. Subaru first meets her when her insignia is stolen by Felt as she needs to possess it to be eligible to participate in the election.'
+				}, {
+					name: 'Rem',
+					tropes: ['Action Girl', 'The Beserker', 'Broken Ace', 'Defrosting Ice Queen', 'Oni'],
+					source: 'Re:Zero',
+					image: 'http://vignette1.wikia.nocookie.net/rezero/images/0/02/Rem_Anime.png/revision/latest?cb=20160730213532',
+					description: 'A maid at the Roswaal mansion and the younger twin sister of Ram. She does the cooking, although she is stated to be more generally skilled than her sister in all areas.'
+				}, {
+					name: 'Crusch',
+					tropes: ['Action Girl', 'The Stoic', 'Pragmatic Hero'],
+					source: 'Re:Zero',
+					image: 'http://i0.kym-cdn.com/photos/images/original/001/149/139/016.jpg',
+					description: "One of the participants in the royal selection to become king of Lugunica. A somewhat dense, but hard-working woman, who tends to prefer masculine attire. If she is chosen as the new king of Lugunica, she vows her first act will be to free Lugunica from the dragon's covenant."
+				}]
+			};
+		},
 		render: function render() {
 			var self = this;
 			// Use react helper methods to pass state to arbitrary child component
 			var children = _react2.default.Children.map(this.props.children, function (child) {
-				return _react2.default.cloneElement(child, {});
+				return _react2.default.cloneElement(child, {
+					sampleCharacters: self.state.sampleCharacters
+				});
 			});
 
 			return _react2.default.createElement(
@@ -59423,19 +59453,70 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _semanticUiReact = __webpack_require__(243);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var tropeOptions = [{
+		text: 'Action Girl',
+		value: 'Action Girl'
+	}, {
+		text: 'Adorkable',
+		value: 'Adorkable'
+	}, {
+		text: 'Flower in Her Hair',
+		value: 'Flower in Her Hair'
+	}, {
+		text: 'The Berserker',
+		value: 'The Berserker'
+	}, {
+		text: 'Broken Ace',
+		value: 'Broken Ace'
+	}, {
+		text: 'Defrosting Ice Queen',
+		value: 'Defrosting Ice Queen'
+	}, {
+		text: 'Oni',
+		value: 'Oni'
+	}, {
+		text: 'The Stoic',
+		value: 'The Stoic'
+	}, {
+		text: 'Pragmatic Hero',
+		value: 'Pragmatic Hero'
+	}];
 
 	var SearchByTrope = _react2.default.createClass({
 		displayName: 'SearchByTrope',
 
+		handleSearch: function handleSearch() {
+			// query data for results
+			// set users results state
+			// redirect to results page
+			this.context.router.push('/results');
+		},
 		render: function render() {
 			return _react2.default.createElement(
 				'div',
 				null,
-				'Searching by Trope'
+				_react2.default.createElement(
+					'h1',
+					null,
+					'Find Characters by Trope'
+				),
+				_react2.default.createElement(_semanticUiReact.Dropdown, { placeholder: 'Tropes', fluid: true, multiple: true, search: true, selection: true, options: tropeOptions }),
+				_react2.default.createElement(
+					_semanticUiReact.Button,
+					{ onClick: this.handleSearch },
+					'Search'
+				)
 			);
 		}
 	});
+
+	SearchByTrope.contextTypes = {
+		router: _react2.default.PropTypes.object
+	};
 
 	exports.default = SearchByTrope;
 
@@ -59498,6 +59579,104 @@
 	});
 
 	exports.default = TropeIndex;
+
+/***/ },
+/* 747 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(35);
+
+	var _semanticUiReact = __webpack_require__(243);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Content = _semanticUiReact.Item.Content,
+	    Description = _semanticUiReact.Item.Description,
+	    Extra = _semanticUiReact.Item.Extra,
+	    Group = _semanticUiReact.Item.Group,
+	    Header = _semanticUiReact.Item.Header,
+	    Image = _semanticUiReact.Item.Image,
+	    Meta = _semanticUiReact.Item.Meta;
+
+
+	var Results = _react2.default.createClass({
+		displayName: 'Results',
+
+		getResultsDom: function getResultsDom() {
+			return this.props.sampleCharacters.map(function (character, i) {
+				return _react2.default.createElement(
+					_semanticUiReact.Item,
+					{ as: _reactRouter.IndexLink, to: 'characters/emilia-tan', key: i },
+					_react2.default.createElement(Image, { src: character.image }),
+					_react2.default.createElement(
+						Content,
+						null,
+						_react2.default.createElement(
+							Header,
+							null,
+							character.name
+						),
+						_react2.default.createElement(
+							Meta,
+							null,
+							_react2.default.createElement(
+								'span',
+								null,
+								character.source
+							)
+						),
+						_react2.default.createElement(
+							Description,
+							null,
+							character.description
+						),
+						_react2.default.createElement(
+							Extra,
+							null,
+							_react2.default.createElement(
+								_semanticUiReact.Label,
+								null,
+								character.tropes[0]
+							),
+							_react2.default.createElement(
+								_semanticUiReact.Label,
+								null,
+								character.tropes[1]
+							)
+						)
+					)
+				);
+			});
+		},
+		render: function render() {
+			return _react2.default.createElement(
+				'div',
+				null,
+				_react2.default.createElement(
+					'h1',
+					null,
+					'Your Matches'
+				),
+				_react2.default.createElement(
+					Group,
+					{ divided: true, link: true },
+					this.getResultsDom()
+				)
+			);
+		}
+	});
+
+	exports.default = Results;
 
 /***/ }
 /******/ ]);
