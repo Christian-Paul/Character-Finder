@@ -10078,13 +10078,13 @@
 				{ className: 'page home' },
 				_react2.default.createElement(
 					'h1',
-					null,
+					{ className: 'home-title' },
 					'Character Finder'
 				),
 				_react2.default.createElement(
 					'h3',
 					null,
-					'Find characters you love'
+					'This project uses TVTrope\'s collection of characters and tropes to easily find characters based on their tropes, or similarity to other characters.'
 				),
 				_react2.default.createElement(
 					'div',
@@ -59369,7 +59369,7 @@
 
 
 	// module
-	exports.push([module.id, ".home {\n  text-align: center; }\n  .home .search-by-options {\n    margin: 0 auto; }\n\n.search-button {\n  margin-top: 1rem; }\n\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Roboto', Helvetica, Arial;\n  background-color: #f5f5f5;\n  font-weight: 300;\n  -webkit-font-smoothing: antialiased; }\n  html a, body a {\n    text-decoration: none; }\n  html .page, body .page {\n    width: 90%;\n    margin: 0 auto;\n    margin-top: 2rem; }\n    html .page h1, body .page h1 {\n      text-align: center;\n      font-size: 3rem;\n      margin-bottom: 2rem; }\n", ""]);
+	exports.push([module.id, ".home {\n  text-align: center; }\n  .home .home-title {\n    margin-top: 6rem;\n    font-size: 8rem; }\n  .home .search-by-options {\n    margin: 0 auto; }\n\n.search-button {\n  margin-top: 1rem; }\n\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Roboto', Helvetica, Arial !important;\n  background-color: #fafafa;\n  font-weight: 300; }\n  html a, body a {\n    text-decoration: none; }\n  html .page, body .page {\n    width: 90%;\n    padding-top: 2rem;\n    margin: 0 auto; }\n    html .page h1, body .page h1 {\n      text-align: center;\n      font-size: 3rem;\n      margin-bottom: 2rem; }\n", ""]);
 
 	// exports
 

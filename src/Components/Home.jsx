@@ -7,8 +7,8 @@ const Home = React.createClass({
 	render: function() {
 		return (
 			<div className='page home'>
-				<h1>Character Finder</h1>
-				<h3>Find characters you love</h3>
+				<h1 className='home-title'>Character Finder</h1>
+				<h3>This project uses TVTrope's collection of characters and tropes to easily find characters based on their tropes, or similarity to other characters.</h3>
 				<div className='serch-by-options'>
 					<Button as={ IndexLink } to='/search-by-trope'>
 						By Trope
