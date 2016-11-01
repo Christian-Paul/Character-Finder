@@ -24,7 +24,7 @@ const Layout = React.createClass({
 					name: 'Crusch',
 					tropes: ['Action Girl', 'The Stoic', 'Pragmatic Hero'],
 					source: 'Re:Zero',
-					image: 'http://i0.kym-cdn.com/photos/images/original/001/149/139/016.jpg',
+					image: 'http://vignette1.wikia.nocookie.net/rezero/images/e/e2/Crusch_Karsten_Anime_2.png/revision/latest?cb=20160617194625',
 					description: "One of the participants in the royal selection to become king of Lugunica. A somewhat dense, but hard-working woman, who tends to prefer masculine attire. If she is chosen as the new king of Lugunica, she vows her first act will be to free Lugunica from the dragon's covenant."
 				}
 			]
