@@ -1,12 +1,10 @@
 var express = require('express');
 var app = express();
-var bodyParser = require('body-parser');
 var path = require('path');
 var mongoose = require('mongoose');
 require('express-helpers')(app);
 app.enable('trust proxy');
 var port = process.env.PORT || 3000;
-
 
 // if in dev, get credentials from config file, else get from heroku env in deployment
 if(port === 3000) {
@@ -21,7 +19,6 @@ if(port === 3000) {
 // middleware
 app.use('/bin', express.static(path.join(__dirname, 'bin')));
 app.use('/public', express.static(path.join(__dirname, 'public')));
-app.use(bodyParser.urlencoded({extended: true}));
 
 // begin app
 app.listen(port, function(req, res) {
