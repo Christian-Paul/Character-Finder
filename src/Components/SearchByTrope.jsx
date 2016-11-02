@@ -51,8 +51,12 @@ const SearchByTrope = React.createClass({
 		return (
 			<div className='page search'>
 				<h1>Find Characters by Trope</h1>
-				<Dropdown placeholder='Tropes' fluid multiple search selection options={tropeOptions} />
-				<Button onClick={this.handleSearch}>Search</Button>
+				<div className='dropdown-holder'>
+					<Dropdown placeholder='Tropes' fluid multiple search selection options={tropeOptions} />
+				</div>
+				<div className='button-holder'>
+					<Button onClick={this.handleSearch}>Search</Button>
+				</div>
 			</div>
 		)
 	}

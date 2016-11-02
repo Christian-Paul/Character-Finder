@@ -6,9 +6,8 @@ module.exports = {
         './src/main.jsx'
     ],
     output: {
-        path: path.join(__dirname, 'public'),
-        filename: 'main.bundle.js',
-        publicPath: '/public/'
+        path: path.join(__dirname, 'bin'),
+        filename: 'main.bundle.js'
     },
     module: {
         loaders: [{

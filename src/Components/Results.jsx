@@ -31,7 +31,7 @@ const Results = React.createClass({
 	},
 	render: function() {
 		return (
-			<div className='page'>
+			<div className='page results'>
 				<h1>Your Matches</h1>
 				<Group divided link>
 					{ this.getResultsDom() }

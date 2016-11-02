@@ -34,7 +34,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/public/";
+/******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -10103,7 +10103,7 @@
 				{ className: 'page home' },
 				_react2.default.createElement(
 					'h1',
-					{ className: 'home-title' },
+					null,
 					'Character Finder'
 				),
 				_react2.default.createElement(
@@ -10113,7 +10113,7 @@
 				),
 				_react2.default.createElement(
 					'div',
-					{ className: 'serch-by-options' },
+					{ className: 'search-by-options' },
 					_react2.default.createElement(
 						_semanticUiReact.Button,
 						{ as: _reactRouter.IndexLink, to: '/search-by-trope' },
@@ -10126,9 +10126,13 @@
 					)
 				),
 				_react2.default.createElement(
-					_reactRouter.IndexLink,
-					{ to: '/trope-index', className: 'view-index' },
-					'View All Tropes'
+					'p',
+					{ className: 'view-index' },
+					_react2.default.createElement(
+						_reactRouter.IndexLink,
+						{ to: '/trope-index' },
+						'View All Tropes'
+					)
 				)
 			);
 		}
@@ -59545,11 +59549,19 @@
 					null,
 					'Find Characters by Trope'
 				),
-				_react2.default.createElement(_semanticUiReact.Dropdown, { placeholder: 'Tropes', fluid: true, multiple: true, search: true, selection: true, options: tropeOptions }),
 				_react2.default.createElement(
-					_semanticUiReact.Button,
-					{ onClick: this.handleSearch },
-					'Search'
+					'div',
+					{ className: 'dropdown-holder' },
+					_react2.default.createElement(_semanticUiReact.Dropdown, { placeholder: 'Tropes', fluid: true, multiple: true, search: true, selection: true, options: tropeOptions })
+				),
+				_react2.default.createElement(
+					'div',
+					{ className: 'button-holder' },
+					_react2.default.createElement(
+						_semanticUiReact.Button,
+						{ onClick: this.handleSearch },
+						'Search'
+					)
 				)
 			);
 		}
@@ -59714,7 +59726,7 @@
 		render: function render() {
 			return _react2.default.createElement(
 				'div',
-				{ className: 'page' },
+				{ className: 'page results' },
 				_react2.default.createElement(
 					'h1',
 					null,
@@ -59768,7 +59780,7 @@
 
 
 	// module
-	exports.push([module.id, ".home {\n  text-align: center; }\n  .home .home-title {\n    margin-top: 6rem;\n    font-size: 8rem; }\n  .home .search-by-options {\n    margin: 0 auto; }\n\n.search-button {\n  margin-top: 1rem; }\n\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Roboto', Helvetica, Arial !important;\n  background-color: #fafafa;\n  font-weight: 300; }\n  html a, body a {\n    text-decoration: none; }\n  html .page, body .page {\n    width: 90%;\n    padding-top: 2rem;\n    margin: 0 auto; }\n    html .page h1, body .page h1 {\n      text-align: center;\n      font-size: 3rem;\n      margin-bottom: 2rem; }\n", ""]);
+	exports.push([module.id, ".home {\n  text-align: center;\n  padding-top: 8rem; }\n  @media (min-width: 800px) {\n    .home {\n      padding-top: 12rem; } }\n  .home h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .home h1 {\n        font-size: 6rem; } }\n  .home .search-by-options {\n    margin-top: 2rem; }\n  .home .view-index {\n    margin-top: 1rem;\n    font-size: 1.15rem; }\n\n.results {\n  padding-top: 2rem; }\n  .results h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .results h1 {\n        font-size: 4rem; } }\n\n.search {\n  padding-top: 8rem; }\n  @media (min-width: 800px) {\n    .search {\n      padding-top: 12rem; } }\n  .search h1 {\n    font-size: 2rem; }\n    @media (min-width: 800px) {\n      .search h1 {\n        font-size: 4rem; } }\n  .search .dropdown-holder {\n    max-width: 60rem;\n    margin: 0 auto; }\n  .search .button-holder {\n    display: flex;\n    margin-top: 2rem;\n    justify-content: center; }\n\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Roboto', Helvetica, Arial !important;\n  background-color: #fafafa;\n  font-weight: 300; }\n  html a, body a {\n    text-decoration: none; }\n  html .page, body .page {\n    width: 90%;\n    margin: 0 auto; }\n    html .page h1, body .page h1 {\n      text-align: center;\n      margin-bottom: 2rem; }\n", ""]);
 
 	// exports
 
