@@ -3,17 +3,13 @@ var webpack = require('webpack');
 
 module.exports = {
     entry: [
-        'webpack-hot-middleware/client',
         './src/main.jsx'
     ],
     output: {
-        path: path.join(__dirname, 'bin'),
+        path: path.join(__dirname, 'public'),
         filename: 'main.bundle.js',
         publicPath: '/public/'
     },
-    plugins: [
-        new webpack.HotModuleReplacementPlugin()
-    ],
     module: {
         loaders: [{
             test: /\.jsx?$/,

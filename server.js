@@ -4,11 +4,27 @@ var path = require('path');
 var mongoose = require('mongoose');
 require('express-helpers')(app);
 app.enable('trust proxy');
-var port = process.env.PORT || 3000;
 
-// if in dev, get credentials from config file, else get from heroku env in deployment
-if(port === 3000) {
+var port = process.env.PORT || 3000;
+var isProduction = port === 3000;
+
+// if in dev, get credentials from local config file and start react hot loader
+// else, get credentials from environment
+if(isProduction) {
 	var config = require('./config.js');
+
+	// react hot loader
+	var webpack = require('webpack');
+	var webpackConfig = require('./webpack.config');
+
+	var compiler = webpack(webpackConfig);
+
+	app.use(require('webpack-dev-middleware')(compiler, {
+		publicPath: webpackConfig.output.publicPath
+	}));
+
+	app.use(require('webpack-hot-middleware')(compiler));
+
 } else {
 	var config = {
 		mongooseUsername: process.env.mongooseUsername,
@@ -28,5 +44,9 @@ app.listen(port, function(req, res) {
 // React Router browser history requires every get route to serve the index.html file in case a user
 // refreshes on a page or starts using the app from any non-index route
 app.get('*', function(req, res) {
-	res.sendFile(path.resolve(__dirname, 'src', 'index.html'))
+	if(isProduction) {
+		res.sendFile(path.resolve(__dirname, 'src', 'index.html'))
+	} else {
+		res.sendFile(path.resolve(__dirname, 'bin', 'index.html'))
+	}
 });
