@@ -9998,33 +9998,36 @@
 
 		getInitialState: function getInitialState() {
 			return {
-				sampleCharacters: [{
-					name: 'Emelia',
-					tropes: ['Action Girl', 'Adorkable', 'Flower in Her Hair'],
-					source: 'Re:Zero',
-					image: 'http://vignette1.wikia.nocookie.net/rezero/images/3/3e/Episode_8.png/revision/latest?cb=20160520212139',
-					description: 'The main female protagonist. She is a half-elf girl who is one of the candidates to become the next ruler in the royal election. Subaru first meets her when her insignia is stolen by Felt as she needs to possess it to be eligible to participate in the election.'
-				}, {
-					name: 'Rem',
-					tropes: ['Action Girl', 'The Beserker', 'Broken Ace', 'Defrosting Ice Queen', 'Oni'],
-					source: 'Re:Zero',
-					image: 'http://vignette1.wikia.nocookie.net/rezero/images/0/02/Rem_Anime.png/revision/latest?cb=20160730213532',
-					description: 'A maid at the Roswaal mansion and the younger twin sister of Ram. She does the cooking, although she is stated to be more generally skilled than her sister in all areas.'
-				}, {
-					name: 'Crusch',
-					tropes: ['Action Girl', 'The Stoic', 'Pragmatic Hero'],
-					source: 'Re:Zero',
-					image: 'http://vignette1.wikia.nocookie.net/rezero/images/e/e2/Crusch_Karsten_Anime_2.png/revision/latest?cb=20160617194625',
-					description: "One of the participants in the royal selection to become king of Lugunica. A somewhat dense, but hard-working woman, who tends to prefer masculine attire. If she is chosen as the new king of Lugunica, she vows her first act will be to free Lugunica from the dragon's covenant."
-				}]
+				previousSearch: '',
+				nextSearch: '',
+				matches: [],
+				tropes: []
 			};
+		},
+		componentDidMount: function componentDidMount() {
+			var self = this;
+
+			axios.get('/tropes').then(function (response) {
+				self.setState({
+					tropes: response.data
+				});
+			}).catch(function (error) {
+				console.log(error);
+			});
+		},
+		setMatches: function setMatches(matches) {
+			this.setState({
+				matches: matches
+			});
 		},
 		render: function render() {
 			var self = this;
 			// Use react helper methods to pass state to arbitrary child component
 			var children = _react2.default.Children.map(this.props.children, function (child) {
 				return _react2.default.cloneElement(child, {
-					sampleCharacters: self.state.sampleCharacters
+					tropes: self.state.tropes,
+					matches: self.state.matches,
+					setMatches: self.setMatches
 				});
 			});
 
@@ -59502,45 +59505,40 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var tropeOptions = [{
-		text: 'Action Girl',
-		value: 'Action Girl'
-	}, {
-		text: 'Adorkable',
-		value: 'Adorkable'
-	}, {
-		text: 'Flower in Her Hair',
-		value: 'Flower in Her Hair'
-	}, {
-		text: 'The Berserker',
-		value: 'The Berserker'
-	}, {
-		text: 'Broken Ace',
-		value: 'Broken Ace'
-	}, {
-		text: 'Defrosting Ice Queen',
-		value: 'Defrosting Ice Queen'
-	}, {
-		text: 'Oni',
-		value: 'Oni'
-	}, {
-		text: 'The Stoic',
-		value: 'The Stoic'
-	}, {
-		text: 'Pragmatic Hero',
-		value: 'Pragmatic Hero'
-	}];
-
 	var SearchByTrope = _react2.default.createClass({
 		displayName: 'SearchByTrope',
 
 		handleSearch: function handleSearch() {
+			var self = this;
+
 			// query data for results
-			// set users results state
-			// redirect to results page
-			this.context.router.push('/results');
+			axios.get('/characters').then(function (response) {
+				// set user's matches state
+				self.props.setMatches(response.data);
+
+				// redirect to results page
+				self.context.router.push('/results');
+			}).catch(function (error) {
+				console.log(error);
+			});
+		},
+		getDropdownOptions: function getDropdownOptions() {
+			var tropes = this.props.tropes;
+			var dropdownOptions = [];
+
+			for (var i = 0; i < tropes.length; i++) {
+				var options = {
+					text: tropes[i].name,
+					value: tropes[i].name
+				};
+
+				dropdownOptions.push(options);
+			}
+
+			return dropdownOptions;
 		},
 		render: function render() {
+			this.getDropdownOptions();
 			return _react2.default.createElement(
 				'div',
 				{ className: 'page search' },
@@ -59552,7 +59550,7 @@
 				_react2.default.createElement(
 					'div',
 					{ className: 'dropdown-holder' },
-					_react2.default.createElement(_semanticUiReact.Dropdown, { placeholder: 'Tropes', fluid: true, multiple: true, search: true, selection: true, options: tropeOptions })
+					_react2.default.createElement(_semanticUiReact.Dropdown, { placeholder: 'Tropes', fluid: true, multiple: true, search: true, selection: true, options: this.getDropdownOptions() })
 				),
 				_react2.default.createElement(
 					'div',
@@ -59678,7 +59676,7 @@
 		displayName: 'Results',
 
 		getResultsDom: function getResultsDom() {
-			return this.props.sampleCharacters.map(function (character, i) {
+			return this.props.matches.map(function (character, i) {
 				return _react2.default.createElement(
 					_semanticUiReact.Item,
 					{ as: _reactRouter.IndexLink, to: 'characters/emilia-tan', key: i },

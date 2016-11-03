@@ -1,58 +1,45 @@
 import React from 'react';
 import { Dropdown, Button } from 'semantic-ui-react'
 
-const tropeOptions = [
-		{
-			text: 'Action Girl',
-			value: 'Action Girl'
-		},
-		{
-			text: 'Adorkable',
-			value: 'Adorkable'
-		},
-		{
-			text: 'Flower in Her Hair',
-			value: 'Flower in Her Hair'
-		},
-		{
-			text: 'The Berserker',
-			value: 'The Berserker'
-		},
-		{
-			text: 'Broken Ace',
-			value: 'Broken Ace'
-		},
-		{
-			text: 'Defrosting Ice Queen',
-			value: 'Defrosting Ice Queen'
-		},
-		{
-			text: 'Oni',
-			value: 'Oni'
-		},
-		{
-			text: 'The Stoic',
-			value: 'The Stoic'
-		},
-		{
-			text: 'Pragmatic Hero',
-			value: 'Pragmatic Hero'
-		},
-	];
-
 const SearchByTrope = React.createClass({
 	handleSearch: function() {
+		var self = this;
+
 		// query data for results
-		// set users results state
-		// redirect to results page
-		this.context.router.push('/results'); 
+		axios.get('/characters')
+			.then(function(response) {
+				// set user's matches state
+				self.props.setMatches(response.data)
+
+				// redirect to results page
+				self.context.router.push('/results'); 
+			})
+			.catch(function(error) {
+				console.log(error)
+			});
+	},
+	getDropdownOptions: function() {
+		var tropes = this.props.tropes;
+		var dropdownOptions = [];
+
+		for(var i = 0; i < tropes.length; i++) {
+			var options = {
+				text: tropes[i].name,
+				value: tropes[i].name
+			}
+
+			dropdownOptions.push(options);
+		}
+
+		return dropdownOptions
 	},
 	render: function() {
+		this.getDropdownOptions()
 		return (
 			<div className='page search'>
 				<h1>Find Characters by Trope</h1>
 				<div className='dropdown-holder'>
-					<Dropdown placeholder='Tropes' fluid multiple search selection options={tropeOptions} />
+					<Dropdown placeholder='Tropes' fluid multiple search selection options={this.getDropdownOptions()} />
 				</div>
 				<div className='button-holder'>
 					<Button onClick={this.handleSearch}>Search</Button>

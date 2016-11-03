@@ -8,7 +8,7 @@ const { Content, Description, Extra, Group, Header, Image, Meta } = Item
 const Results = React.createClass({
 	getResultsDom: function() {
 		return (
-			this.props.sampleCharacters.map(function(character, i) {
+			this.props.matches.map(function(character, i) {
 				return (
 					<Item as={ IndexLink } to='characters/emilia-tan' key={i}>
 						<Image src={ character.image } />

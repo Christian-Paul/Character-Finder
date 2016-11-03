@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var path = require('path');
 var mongoose = require('mongoose');
+var sampleData = require('./sampleData.js');
 require('express-helpers')(app);
 app.enable('trust proxy');
 
@@ -40,6 +41,14 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 app.listen(port, function(req, res) {
 	console.log('listening on 3000');
 })
+
+app.get('/tropes', function(req, res) {
+	res.send(sampleData.tropes);
+});
+
+app.get('/characters', function(req, res) {
+	res.send(sampleData.characters);
+});
 
 // React Router browser history requires every get route to serve the index.html file in case a user
 // refreshes on a page or starts using the app from any non-index route
