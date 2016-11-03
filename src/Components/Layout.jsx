@@ -5,8 +5,6 @@ import Navbar from './Navbar.jsx';
 const Layout = React.createClass({
 	getInitialState: function() {
 		return ({
-			previousSearch: '',
-			nextSearch: '',
 			matches: [],
 			tropes: []
 		})

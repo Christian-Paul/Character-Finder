@@ -9998,8 +9998,6 @@
 
 		getInitialState: function getInitialState() {
 			return {
-				previousSearch: '',
-				nextSearch: '',
 				matches: [],
 				tropes: []
 			};
@@ -59623,16 +59621,31 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _semanticUiReact = __webpack_require__(102);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var TropeIndex = _react2.default.createClass({
 		displayName: 'TropeIndex',
 
+		getTropes: function getTropes() {
+			return this.props.tropes.map(function (trope) {
+				return {
+					title: trope.name,
+					content: trope.description
+				};
+			});
+		},
 		render: function render() {
 			return _react2.default.createElement(
 				'div',
-				null,
-				'Trope Index'
+				{ className: 'page tropeindex' },
+				_react2.default.createElement(
+					'h1',
+					null,
+					'All Tropes'
+				),
+				_react2.default.createElement(_semanticUiReact.Accordion, { panels: this.getTropes(), fluid: true, styled: true })
 			);
 		}
 	});
@@ -59778,7 +59791,7 @@
 
 
 	// module
-	exports.push([module.id, ".home {\n  text-align: center;\n  padding-top: 8rem; }\n  @media (min-width: 800px) {\n    .home {\n      padding-top: 12rem; } }\n  .home h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .home h1 {\n        font-size: 6rem; } }\n  .home .search-by-options {\n    margin-top: 2rem; }\n  .home .view-index {\n    margin-top: 1rem;\n    font-size: 1.15rem; }\n\n.results {\n  padding-top: 2rem; }\n  .results h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .results h1 {\n        font-size: 4rem; } }\n\n.search {\n  padding-top: 8rem; }\n  @media (min-width: 800px) {\n    .search {\n      padding-top: 12rem; } }\n  .search h1 {\n    font-size: 2rem; }\n    @media (min-width: 800px) {\n      .search h1 {\n        font-size: 4rem; } }\n  .search .dropdown-holder {\n    max-width: 60rem;\n    margin: 0 auto; }\n  .search .button-holder {\n    display: flex;\n    margin-top: 2rem;\n    justify-content: center; }\n\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Roboto', Helvetica, Arial !important;\n  background-color: #fafafa;\n  font-weight: 300; }\n  html a, body a {\n    text-decoration: none; }\n  html .page, body .page {\n    width: 90%;\n    margin: 0 auto; }\n    html .page h1, body .page h1 {\n      text-align: center;\n      margin-bottom: 2rem; }\n", ""]);
+	exports.push([module.id, ".home {\n  text-align: center;\n  padding-top: 8rem; }\n  @media (min-width: 800px) {\n    .home {\n      padding-top: 12rem; } }\n  .home h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .home h1 {\n        font-size: 6rem; } }\n  .home .search-by-options {\n    margin-top: 2rem; }\n  .home .view-index {\n    margin-top: 1rem;\n    font-size: 1.15rem; }\n\n.results {\n  padding-top: 2rem; }\n  .results h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .results h1 {\n        font-size: 4rem; } }\n\n.search {\n  padding-top: 8rem; }\n  @media (min-width: 800px) {\n    .search {\n      padding-top: 12rem; } }\n  .search h1 {\n    font-size: 2rem; }\n    @media (min-width: 800px) {\n      .search h1 {\n        font-size: 4rem; } }\n  .search .dropdown-holder {\n    max-width: 60rem;\n    margin: 0 auto; }\n  .search .button-holder {\n    display: flex;\n    margin-top: 2rem;\n    justify-content: center; }\n\n.tropeindex {\n  padding-top: 2rem; }\n  .tropeindex h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .tropeindex h1 {\n        font-size: 4rem; } }\n\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Roboto', Helvetica, Arial !important;\n  background-color: #fafafa;\n  font-weight: 300; }\n  html a, body a {\n    text-decoration: none; }\n  html .page, body .page {\n    width: 90%;\n    margin: 0 auto; }\n    html .page h1, body .page h1 {\n      text-align: center;\n      margin-bottom: 2rem; }\n", ""]);
 
 	// exports
 
