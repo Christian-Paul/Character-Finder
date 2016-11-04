@@ -67,7 +67,7 @@
 
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 
-	__webpack_require__(751);
+	__webpack_require__(752);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -117,6 +117,10 @@
 
 	var _Results2 = _interopRequireDefault(_Results);
 
+	var _Character = __webpack_require__(751);
+
+	var _Character2 = _interopRequireDefault(_Character);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var App = _react2.default.createClass({
@@ -133,7 +137,8 @@
 					_react2.default.createElement(_reactRouter.Route, { path: '/search-by-trope', component: _SearchByTrope2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: '/search-by-characters', component: _SearchByCharacters2.default }),
 					_react2.default.createElement(_reactRouter.Route, { path: '/trope-index', component: _TropeIndex2.default }),
-					_react2.default.createElement(_reactRouter.Route, { path: '/results', component: _Results2.default })
+					_react2.default.createElement(_reactRouter.Route, { path: '/results', component: _Results2.default }),
+					_react2.default.createElement(_reactRouter.Route, { path: '/matches/:matchNumber', component: _Character2.default })
 				)
 			);
 		}
@@ -59506,9 +59511,15 @@
 	var SearchByTrope = _react2.default.createClass({
 		displayName: 'SearchByTrope',
 
+		getInitialState: function getInitialState() {
+			return {
+				selected: []
+			};
+		},
 		handleSearch: function handleSearch() {
 			var self = this;
 
+			console.log(this.state.selected);
 			// query data for results
 			axios.get('/characters').then(function (response) {
 				// set user's matches state
@@ -59518,6 +59529,11 @@
 				self.context.router.push('/results');
 			}).catch(function (error) {
 				console.log(error);
+			});
+		},
+		handleChange: function handleChange(name, value) {
+			this.setState({
+				selected: value.value
 			});
 		},
 		getDropdownOptions: function getDropdownOptions() {
@@ -59548,7 +59564,7 @@
 				_react2.default.createElement(
 					'div',
 					{ className: 'dropdown-holder' },
-					_react2.default.createElement(_semanticUiReact.Dropdown, { placeholder: 'Tropes', fluid: true, multiple: true, search: true, selection: true, options: this.getDropdownOptions() })
+					_react2.default.createElement(_semanticUiReact.Dropdown, { placeholder: 'Tropes', fluid: true, multiple: true, search: true, selection: true, onChange: this.handleChange, options: this.getDropdownOptions() })
 				),
 				_react2.default.createElement(
 					'div',
@@ -59692,8 +59708,8 @@
 			return this.props.matches.map(function (character, i) {
 				return _react2.default.createElement(
 					_semanticUiReact.Item,
-					{ as: _reactRouter.IndexLink, to: 'characters/emilia-tan', key: i },
-					_react2.default.createElement(Image, { src: character.image }),
+					{ as: _reactRouter.IndexLink, to: 'matches/' + i, key: i },
+					_react2.default.createElement(Image, { size: 'medium', src: character.image }),
 					_react2.default.createElement(
 						Content,
 						null,
@@ -59760,13 +59776,78 @@
 /* 751 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* REACT HOT LOADER */ if (false) { (function () { var ReactHotAPI = require("C:\\Users\\Chris\\Desktop\\Character Finder\\node_modules\\react-hot-api\\modules\\index.js"), RootInstanceProvider = require("C:\\Users\\Chris\\Desktop\\Character Finder\\node_modules\\react-hot-loader\\RootInstanceProvider.js"), ReactMount = require("react/lib/ReactMount"), React = require("react"); module.makeHot = module.hot.data ? module.hot.data.makeHot : ReactHotAPI(function () { return RootInstanceProvider.getRootInstances(ReactMount); }, React); })(); } try { (function () {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _react = __webpack_require__(3);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _semanticUiReact = __webpack_require__(102);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Character = _react2.default.createClass({
+		displayName: 'Character',
+
+		getTropes: function getTropes() {
+			var match = this.props.matches[this.props.params.matchNumber];
+
+			return match.tropes.map(function (trope, i) {
+				return {
+					title: trope,
+					content: match.tropeExplanations[i]
+				};
+			});
+		},
+		render: function render() {
+			var match = this.props.matches[this.props.params.matchNumber];
+
+			return _react2.default.createElement(
+				'div',
+				{ className: 'page character' },
+				_react2.default.createElement(_semanticUiReact.Card, {
+					image: match.image,
+					header: match.name,
+					meta: match.source,
+					description: match.description,
+					centered: true
+				}),
+				_react2.default.createElement(
+					'div',
+					{ className: 'tropes' },
+					_react2.default.createElement(
+						'h3',
+						null,
+						match.name,
+						'\'s Tropes'
+					),
+					_react2.default.createElement(_semanticUiReact.Accordion, { panels: this.getTropes(), fluid: true, styled: true })
+				)
+			);
+		}
+	});
+
+	exports.default = Character;
+
+	/* REACT HOT LOADER */ }).call(this); } finally { if (false) { (function () { var foundReactClasses = module.hot.data && module.hot.data.foundReactClasses || false; if (module.exports && module.makeHot) { var makeExportsHot = require("C:\\Users\\Chris\\Desktop\\Character Finder\\node_modules\\react-hot-loader\\makeExportsHot.js"); if (makeExportsHot(module, require("react"))) { foundReactClasses = true; } var shouldAcceptModule = true && foundReactClasses; if (shouldAcceptModule) { module.hot.accept(function (err) { if (err) { console.error("Cannot not apply hot update to " + "Character.jsx" + ": " + err.message); } }); } } module.hot.dispose(function (data) { data.makeHot = module.makeHot; data.foundReactClasses = foundReactClasses; }); })(); } }
+
+/***/ },
+/* 752 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(752);
+	var content = __webpack_require__(753);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(754)(content, {});
+	var update = __webpack_require__(755)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -59783,21 +59864,21 @@
 	}
 
 /***/ },
-/* 752 */
+/* 753 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(753)();
+	exports = module.exports = __webpack_require__(754)();
 	// imports
 
 
 	// module
-	exports.push([module.id, ".home {\n  text-align: center;\n  padding-top: 8rem; }\n  @media (min-width: 800px) {\n    .home {\n      padding-top: 12rem; } }\n  .home h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .home h1 {\n        font-size: 6rem; } }\n  .home .search-by-options {\n    margin-top: 2rem; }\n  .home .view-index {\n    margin-top: 1rem;\n    font-size: 1.15rem; }\n\n.results {\n  padding-top: 2rem; }\n  .results h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .results h1 {\n        font-size: 4rem; } }\n\n.search {\n  padding-top: 8rem; }\n  @media (min-width: 800px) {\n    .search {\n      padding-top: 12rem; } }\n  .search h1 {\n    font-size: 2rem; }\n    @media (min-width: 800px) {\n      .search h1 {\n        font-size: 4rem; } }\n  .search .dropdown-holder {\n    max-width: 60rem;\n    margin: 0 auto; }\n  .search .button-holder {\n    display: flex;\n    margin-top: 2rem;\n    justify-content: center; }\n\n.tropeindex {\n  padding-top: 2rem; }\n  .tropeindex h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .tropeindex h1 {\n        font-size: 4rem; } }\n\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Roboto', Helvetica, Arial !important;\n  background-color: #fafafa;\n  font-weight: 300; }\n  html a, body a {\n    text-decoration: none; }\n  html .page, body .page {\n    width: 90%;\n    margin: 0 auto; }\n    html .page h1, body .page h1 {\n      text-align: center;\n      margin-bottom: 2rem; }\n", ""]);
+	exports.push([module.id, ".home {\n  text-align: center;\n  padding-top: 8rem; }\n  @media (min-width: 800px) {\n    .home {\n      padding-top: 12rem; } }\n  .home h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .home h1 {\n        font-size: 6rem; } }\n  .home .search-by-options {\n    margin-top: 2rem; }\n  .home .view-index {\n    margin-top: 1rem;\n    font-size: 1.15rem; }\n\n.results {\n  padding-top: 2rem; }\n  .results h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .results h1 {\n        font-size: 4rem; } }\n\n.search {\n  padding-top: 8rem; }\n  @media (min-width: 800px) {\n    .search {\n      padding-top: 12rem; } }\n  .search h1 {\n    font-size: 2rem; }\n    @media (min-width: 800px) {\n      .search h1 {\n        font-size: 4rem; } }\n  .search .dropdown-holder {\n    max-width: 60rem;\n    margin: 0 auto; }\n  .search .button-holder {\n    display: flex;\n    margin-top: 2rem;\n    justify-content: center; }\n\n.tropeindex {\n  padding-top: 2rem; }\n  .tropeindex h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .tropeindex h1 {\n        font-size: 4rem; } }\n\n.character {\n  padding-top: 2rem; }\n  .character h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .character h1 {\n        font-size: 4rem; } }\n  .character .tropes {\n    margin-top: 1rem; }\n\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Roboto', Helvetica, Arial !important;\n  background-color: #fafafa;\n  font-weight: 300; }\n  html a, body a {\n    text-decoration: none; }\n  html .page, body .page {\n    width: 90%;\n    margin: 0 auto; }\n    html .page h1, body .page h1 {\n      text-align: center;\n      margin-bottom: 2rem; }\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 753 */
+/* 754 */
 /***/ function(module, exports) {
 
 	/*
@@ -59853,7 +59934,7 @@
 
 
 /***/ },
-/* 754 */
+/* 755 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

@@ -2,9 +2,15 @@ import React from 'react';
 import { Dropdown, Button } from 'semantic-ui-react'
 
 const SearchByTrope = React.createClass({
+	getInitialState: function() {
+		return ({
+			selected: []
+		})
+	},
 	handleSearch: function() {
 		var self = this;
 
+		console.log(this.state.selected);
 		// query data for results
 		axios.get('/characters')
 			.then(function(response) {
@@ -12,11 +18,16 @@ const SearchByTrope = React.createClass({
 				self.props.setMatches(response.data)
 
 				// redirect to results page
-				self.context.router.push('/results'); 
+				self.context.router.push('/results');
 			})
 			.catch(function(error) {
 				console.log(error)
 			});
+	},
+	handleChange: function(name, value) {
+		this.setState({
+			selected: value.value
+		})
 	},
 	getDropdownOptions: function() {
 		var tropes = this.props.tropes;
@@ -39,7 +50,7 @@ const SearchByTrope = React.createClass({
 			<div className='page search'>
 				<h1>Find Characters by Trope</h1>
 				<div className='dropdown-holder'>
-					<Dropdown placeholder='Tropes' fluid multiple search selection options={this.getDropdownOptions()} />
+					<Dropdown placeholder='Tropes' fluid multiple search selection onChange={this.handleChange} options={this.getDropdownOptions()} />
 				</div>
 				<div className='button-holder'>
 					<Button onClick={this.handleSearch}>Search</Button>

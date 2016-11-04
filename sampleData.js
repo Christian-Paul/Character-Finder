@@ -5,7 +5,7 @@ module.exports = sampleData = {
 			tropes: ['Action Girl', 'Adorkable', 'Flower in Her Hair'],
 			tropeExplanations: ['Is an extremely competent spirit user and is able to hold off Elsa.', "Subaru's antics really bring out her cute side.", 'She wears a white rose on her hair.'],
 			source: 'Re:Zero',
-			image: 'http://vignette1.wikia.nocookie.net/rezero/images/3/3e/Episode_8.png/revision/latest?cb=20160520212139',
+			image: 'http://vignette1.wikia.nocookie.net/rezero/images/c/c0/Emilia_Anime_2.png/revision/latest?cb=20160408203829',
 			description: 'The main female protagonist. She is a half-elf girl who is one of the candidates to become the next ruler in the royal election. Subaru first meets her when her insignia is stolen by Felt as she needs to possess it to be eligible to participate in the election.'
 		},
 		{

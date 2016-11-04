@@ -10,8 +10,8 @@ const Results = React.createClass({
 		return (
 			this.props.matches.map(function(character, i) {
 				return (
-					<Item as={ IndexLink } to='characters/emilia-tan' key={i}>
-						<Image src={ character.image } />
+					<Item as={ IndexLink } to={'matches/'+i} key={i}>
+						<Image size='medium' src={ character.image } />
 
 						<Content>
 							<Header>{ character.name }</Header>
