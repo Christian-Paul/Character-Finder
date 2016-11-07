@@ -59792,39 +59792,73 @@
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+	var Content = _semanticUiReact.Item.Content,
+	    Description = _semanticUiReact.Item.Description,
+	    Extra = _semanticUiReact.Item.Extra,
+	    Group = _semanticUiReact.Item.Group,
+	    Header = _semanticUiReact.Item.Header,
+	    Image = _semanticUiReact.Item.Image,
+	    Meta = _semanticUiReact.Item.Meta;
+
+
 	var Character = _react2.default.createClass({
 		displayName: 'Character',
 
 		getTropes: function getTropes() {
-			var match = this.props.matches[this.props.params.matchNumber];
+			var character = this.props.matches[this.props.params.matchNumber];
 
-			return match.tropes.map(function (trope, i) {
+			return character.tropes.map(function (trope, i) {
 				return {
 					title: trope,
-					content: match.tropeExplanations[i]
+					content: character.tropeExplanations[i]
 				};
 			});
 		},
 		render: function render() {
-			var match = this.props.matches[this.props.params.matchNumber];
+			var character = this.props.matches[this.props.params.matchNumber];
 
 			return _react2.default.createElement(
 				'div',
 				{ className: 'page character' },
-				_react2.default.createElement(_semanticUiReact.Card, {
-					image: match.image,
-					header: match.name,
-					meta: match.source,
-					description: match.description,
-					centered: true
-				}),
+				_react2.default.createElement(
+					Group,
+					null,
+					_react2.default.createElement(
+						_semanticUiReact.Item,
+						null,
+						_react2.default.createElement(Image, { size: 'medium', src: character.image }),
+						_react2.default.createElement(
+							Content,
+							null,
+							_react2.default.createElement(
+								Header,
+								{ className: 'character-name' },
+								character.name
+							),
+							_react2.default.createElement(
+								Meta,
+								null,
+								_react2.default.createElement(
+									'span',
+									null,
+									character.source
+								)
+							),
+							_react2.default.createElement(
+								Description,
+								null,
+								character.description
+							)
+						)
+					)
+				),
 				_react2.default.createElement(
 					'div',
 					{ className: 'tropes' },
 					_react2.default.createElement(
 						'h3',
 						null,
-						match.name,
+						character.name,
 						'\'s Tropes'
 					),
 					_react2.default.createElement(_semanticUiReact.Accordion, { panels: this.getTropes(), fluid: true, styled: true })
@@ -59872,7 +59906,7 @@
 
 
 	// module
-	exports.push([module.id, ".home {\n  text-align: center;\n  padding-top: 8rem; }\n  @media (min-width: 800px) {\n    .home {\n      padding-top: 12rem; } }\n  .home h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .home h1 {\n        font-size: 6rem; } }\n  .home .search-by-options {\n    margin-top: 2rem; }\n  .home .view-index {\n    margin-top: 1rem;\n    font-size: 1.15rem; }\n\n.results {\n  padding-top: 2rem; }\n  .results h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .results h1 {\n        font-size: 4rem; } }\n\n.search {\n  padding-top: 8rem; }\n  @media (min-width: 800px) {\n    .search {\n      padding-top: 12rem; } }\n  .search h1 {\n    font-size: 2rem; }\n    @media (min-width: 800px) {\n      .search h1 {\n        font-size: 4rem; } }\n  .search .dropdown-holder {\n    max-width: 60rem;\n    margin: 0 auto; }\n  .search .button-holder {\n    display: flex;\n    margin-top: 2rem;\n    justify-content: center; }\n\n.tropeindex {\n  padding-top: 2rem; }\n  .tropeindex h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .tropeindex h1 {\n        font-size: 4rem; } }\n\n.character {\n  padding-top: 2rem; }\n  .character h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .character h1 {\n        font-size: 4rem; } }\n  .character .tropes {\n    margin-top: 1rem; }\n\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Roboto', Helvetica, Arial !important;\n  background-color: #fafafa;\n  font-weight: 300; }\n  html a, body a {\n    text-decoration: none; }\n  html .page, body .page {\n    width: 90%;\n    margin: 0 auto; }\n    html .page h1, body .page h1 {\n      text-align: center;\n      margin-bottom: 2rem; }\n", ""]);
+	exports.push([module.id, ".home {\n  text-align: center;\n  padding-top: 8rem; }\n  @media (min-width: 800px) {\n    .home {\n      padding-top: 12rem; } }\n  .home h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .home h1 {\n        font-size: 6rem; } }\n  .home .search-by-options {\n    margin-top: 2rem; }\n  .home .view-index {\n    margin-top: 1rem;\n    font-size: 1.15rem; }\n\n.results {\n  padding-top: 2rem;\n  padding-bottom: 5rem; }\n  .results h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .results h1 {\n        font-size: 4rem; } }\n\n.search {\n  padding-top: 8rem; }\n  @media (min-width: 800px) {\n    .search {\n      padding-top: 12rem; } }\n  .search h1 {\n    font-size: 2rem; }\n    @media (min-width: 800px) {\n      .search h1 {\n        font-size: 4rem; } }\n  .search .dropdown-holder {\n    max-width: 60rem;\n    margin: 0 auto; }\n  .search .button-holder {\n    display: flex;\n    margin-top: 2rem;\n    justify-content: center; }\n\n.tropeindex {\n  padding-top: 2rem; }\n  .tropeindex h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .tropeindex h1 {\n        font-size: 4rem; } }\n\n.character {\n  padding-top: 5rem; }\n  .character h1 {\n    font-size: 3rem; }\n    @media (min-width: 800px) {\n      .character h1 {\n        font-size: 4rem; } }\n  .character .tropes {\n    margin-top: 4rem; }\n\nhtml, body {\n  margin: 0;\n  padding: 0;\n  font-family: 'Roboto', Helvetica, Arial !important;\n  background-color: #fafafa;\n  font-weight: 300; }\n  html a, body a {\n    text-decoration: none; }\n  html .page, body .page {\n    width: 90%;\n    margin: 0 auto; }\n    html .page h1, body .page h1 {\n      text-align: center;\n      margin-bottom: 2rem; }\n", ""]);
 
 	// exports
 

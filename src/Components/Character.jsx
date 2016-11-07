@@ -1,34 +1,44 @@
 import React from 'react';
 
-import { Accordion, Card } from 'semantic-ui-react'
+import { Accordion, Item } from 'semantic-ui-react'
+
+const { Content, Description, Extra, Group, Header, Image, Meta } = Item
 
 const Character = React.createClass({
 	getTropes: function() {
-		const match = this.props.matches[this.props.params.matchNumber];
+		const character = this.props.matches[this.props.params.matchNumber];
 
 		return (
-			match.tropes.map((trope, i) => {
+			character.tropes.map((trope, i) => {
 				return ({
 					title: trope,
-					content: match.tropeExplanations[i]
+					content: character.tropeExplanations[i]
 				})
 			})
 		)
 	},
 	render: function() {
-		const match = this.props.matches[this.props.params.matchNumber];
+		const character = this.props.matches[this.props.params.matchNumber];
 
 		return (
 			<div className='page character'>
-				<Card
-					image={match.image}
-					header={match.name}
-					meta={match.source}
-					description={match.description}
-					centered
-				/>
+
+				<Group>
+					<Item>
+						<Image size='medium' src={ character.image } />
+
+						<Content>
+							<Header className='character-name'>{ character.name }</Header>
+							<Meta>
+								<span>{ character.source }</span>
+							</Meta>
+							<Description>{ character.description }</Description>
+						</Content>
+					</Item>
+				</Group>
+
 				<div className='tropes'>
-					<h3>{match.name}'s Tropes</h3>
+					<h3>{character.name}'s Tropes</h3>
 					<Accordion panels={this.getTropes()} fluid styled/>
 				</div>
 			</div>
