@@ -73,13 +73,34 @@ app.get('/tropes', function(req, res) {
 });
 
 app.get('/characters', function(req, res) {
-	Character.find(function(err, characters) {
+
+	var selectedTraits = req.query.selectedTraits.split(',');
+
+	Character.aggregate([
+		{$match: { 'tropes': { $in: selectedTraits } }},
+		{$project: { 'tropesCopy': '$tropes', 'tropes': 1, 'name': 1, 'tropeExplanations': 1, 'source': 1, 'image': 1, 'description': 1 }},
+		{$unwind: '$tropes'},
+		{$match: { tropes: { $in: selectedTraits } }},
+		{$group: { 
+			'_id': '$_id', 
+			'score': {$sum: 1},
+			'allTropes': {$first: '$tropesCopy'},
+			'name': {$first: '$name'},
+			'tropeExplanations': {$first: '$tropeExplanations'},
+			'source': {$first: '$source'},
+			'image': {$first: '$image'},
+			'description': {$first: '$description'},
+			'matchedTropes': {$push: '$tropes'} }},
+		{$sort: {score: -1}},
+		{$limit: 10}
+	], function(err, results) {
 		if(err) {
 			console.log(err);
 		} else {
-			res.send(characters);
+			res.send(results);
 		}
-	});
+	})
+
 });
 
 // React Router browser history requires every get route to serve the index.html file in case a user

@@ -7,8 +7,10 @@ const { Content, Description, Extra, Group, Header, Image, Meta } = Item
 
 const Results = React.createClass({
 	getResultsDom: function() {
+		console.log(this.props.matches);
 		return (
 			this.props.matches.map(function(character, i) {
+				console.log(character);
 				return (
 					<Item as={ IndexLink } to={'matches/'+i} key={i}>
 						<Image size='medium' src={ character.image } />
@@ -20,8 +22,9 @@ const Results = React.createClass({
 							</Meta>
 							<Description>{ character.description }</Description>
 							<Extra>
-								<Label>{ character.tropes[0] }</Label>
-								<Label>{ character.tropes[1] }</Label>
+								{character.matchedTropes.map((trope, j) => {
+									return <Label key={j}>{trope}</Label>
+								})}
 							</Extra>
 						</Content>
 					</Item>

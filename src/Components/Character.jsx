@@ -9,7 +9,7 @@ const Character = React.createClass({
 		const character = this.props.matches[this.props.params.matchNumber];
 
 		return (
-			character.tropes.map((trope, i) => {
+			character.allTropes.map((trope, i) => {
 				return ({
 					title: trope,
 					content: character.tropeExplanations[i]

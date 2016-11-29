@@ -10,12 +10,12 @@ const SearchByTrope = React.createClass({
 	handleSearch: function() {
 		var self = this;
 
-		console.log(this.state.selected);
 		// query data for results
-		axios.get('/characters')
+		axios.get('/characters?selectedTraits=' + self.state.selected)
 			.then(function(response) {
 				// set user's matches state
 				self.props.setMatches(response.data)
+
 
 				// redirect to results page
 				self.context.router.push('/results');
