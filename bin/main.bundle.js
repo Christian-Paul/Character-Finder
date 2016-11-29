@@ -59519,17 +59519,21 @@
 		handleSearch: function handleSearch() {
 			var self = this;
 
-			console.log(this.state.selected);
-			// query data for results
-			axios.get('/characters').then(function (response) {
-				// set user's matches state
-				self.props.setMatches(response.data);
+			// validate that user has entered at least one trope
+			if (this.state.selected.length < 1) {
+				alert('Select a Trope');
+			} else {
+				// query data for results
+				axios.get('/characters?selectedTraits=' + self.state.selected).then(function (response) {
+					// set user's matches state
+					self.props.setMatches(response.data);
 
-				// redirect to results page
-				self.context.router.push('/results');
-			}).catch(function (error) {
-				console.log(error);
-			});
+					// redirect to results page
+					self.context.router.push('/results');
+				}).catch(function (error) {
+					console.log(error);
+				});
+			}
 		},
 		handleChange: function handleChange(name, value) {
 			this.setState({
@@ -59705,7 +59709,9 @@
 		displayName: 'Results',
 
 		getResultsDom: function getResultsDom() {
+			console.log(this.props.matches);
 			return this.props.matches.map(function (character, i) {
+				console.log(character);
 				return _react2.default.createElement(
 					_semanticUiReact.Item,
 					{ as: _reactRouter.IndexLink, to: 'matches/' + i, key: i },
@@ -59735,16 +59741,13 @@
 						_react2.default.createElement(
 							Extra,
 							null,
-							_react2.default.createElement(
-								_semanticUiReact.Label,
-								null,
-								character.tropes[0]
-							),
-							_react2.default.createElement(
-								_semanticUiReact.Label,
-								null,
-								character.tropes[1]
-							)
+							character.matchedTropes.map(function (trope, j) {
+								return _react2.default.createElement(
+									_semanticUiReact.Label,
+									{ key: j },
+									trope
+								);
+							})
 						)
 					)
 				);
@@ -59807,7 +59810,7 @@
 		getTropes: function getTropes() {
 			var character = this.props.matches[this.props.params.matchNumber];
 
-			return character.tropes.map(function (trope, i) {
+			return character.allTropes.map(function (trope, i) {
 				return {
 					title: trope,
 					content: character.tropeExplanations[i]
