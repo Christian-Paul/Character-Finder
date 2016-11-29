@@ -10,19 +10,24 @@ const SearchByTrope = React.createClass({
 	handleSearch: function() {
 		var self = this;
 
-		// query data for results
-		axios.get('/characters?selectedTraits=' + self.state.selected)
-			.then(function(response) {
-				// set user's matches state
-				self.props.setMatches(response.data)
+		// validate that user has entered at least one trope
+		if(this.state.selected.length < 1) {
+			alert('Select a Trope');
+		} else {
+			// query data for results
+			axios.get('/characters?selectedTraits=' + self.state.selected)
+				.then(function(response) {
+					// set user's matches state
+					self.props.setMatches(response.data)
 
 
-				// redirect to results page
-				self.context.router.push('/results');
-			})
-			.catch(function(error) {
-				console.log(error)
-			});
+					// redirect to results page
+					self.context.router.push('/results');
+				})
+				.catch(function(error) {
+					console.log(error)
+				});
+		}
 	},
 	handleChange: function(name, value) {
 		this.setState({
